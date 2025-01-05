@@ -80,7 +80,55 @@ export const homepage = defineType({
           ]
         })
       ]
+    }),
+    // schemas/homepage.ts
+// Add this to your existing fields array
+defineField({
+  name: 'features',
+  title: 'Features Section',
+  type: 'object',
+  fields: [
+    { type: 'string', name: 'sectionTitle' },
+    { type: 'string', name: 'subtitle' },
+    defineField({
+      name: 'featuresList',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'feature',
+          fields: [
+            { type: 'string', name: 'title' },
+            { type: 'string', name: 'description' }
+          ]
+        })
+      ]
     })
+  ]
+}),
+defineField({
+  name: 'partners',
+  title: 'Partners Section',
+  type: 'object',
+  fields: [
+    { type: 'string', name: 'title' },
+    { type: 'string', name: 'description' },
+    { type: 'string', name: 'buttonText' },
+    defineField({
+      name: 'partnerBoxes',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            { type: 'string', name: 'backgroundColor' },
+            { type: 'string', name: 'logoColor' },
+          ]
+        })
+      ]
+    })
+  ]
+})
   ],
 });
 
@@ -108,5 +156,14 @@ export interface Homepage {
       features: string[];
       buttonText: string;
     }>;
+    partners: {
+      title: string;
+      description: string;
+      buttonText: string;
+      partnerBoxes: Array<{
+        backgroundColor: string;
+        logoColor: string;
+      }>;
+    };
+  }
   };
-}
